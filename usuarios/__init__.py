@@ -1,10 +1,9 @@
 import random
 from style import *
 
-
 usuarios = {1: {'nome': 'matheus', 'senha': '1234567', 'tipo': 'adm'}}
 admin_password = "1234567"
-from style import *
+
 
 def admin_menu():
     espacamento()

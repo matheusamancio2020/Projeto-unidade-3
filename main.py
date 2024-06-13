@@ -1,3 +1,5 @@
+# Matheus Amancio de Oliveira #
+# José Victor Faustino Vieira #
 
 from usuarios import *
 from funcoesdoadm import *
@@ -14,10 +16,9 @@ while True:
     escolha = int(escolha)
 
     if escolha == 1:
-        espacamento()
+
         usuario = input(azul('Digite o seu nome, usuário: '))
         senha = input(azul('Digite sua senha, usuário: '))
-        espacamento()
 
         user_data = login(usuario, senha)
 
@@ -65,7 +66,7 @@ while True:
                 elif escolhausuario == 2:
                     compra_ingressos(user_data['nome'])
                 elif escolhausuario == 3:
-                    buscar_filme_usuario()
+                    buscar_filmes()
                 elif escolhausuario == 4:
                     listar_ingressos_comprados_cliente(user_data['nome'])
                 elif escolhausuario == 5:
@@ -78,11 +79,11 @@ while True:
                 else:
                     print(vermelho('Insira um valor válido'))
         else:
-            print(vermelho('Credenciais inválidas. Por favor, verifique seu nome de usuário e senha.'))
+            print(vermelho('Usuário ou senha incorretos. Tente novamente.'))
     elif escolha == 2:
         cadastrar_usuario()
     elif escolha == 3:
-        print(ciano("Saindo..."))
+        print(ciano("Saindo do sistema. Até mais!"))
         break
     else:
-        print(vermelho("Opção inválida. Tente novamente."))
+        print(vermelho("Opção inválida. Por favor, escolha uma opção válida."))

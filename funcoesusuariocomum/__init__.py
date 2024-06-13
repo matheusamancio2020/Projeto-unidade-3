@@ -36,12 +36,6 @@ def compra_ingressos(usuario):
         print(vermelho("Filme não encontrado. Por favor, verifique o título digitado."))
 
 
-def buscar_filme_usuario():
-    busca = input(azul('Qual filme deseja realizar a busca?: '))
-    for filme in dados:
-        if busca.lower() in filme['Titulo'].lower():
-            print(f"Título: {filme['Titulo']}\nHorário: {filme['Horario']}\nData: {filme['Data']}\nPreço: {filme['Preço']}\nSinopse: {filme['Sinopse']}")
-
 
 def listar_ingressos_comprados_cliente(usuario):
     if usuario in compras_por_cliente:
@@ -56,17 +50,17 @@ def visualizar_filmes_populares():
     filmes_ordenados = []
     for filme in dados:
         inserido = False
-        for i, f in enumerate(filmes_ordenados):
-            if filme['Quantidade Ingressos'] > f['Quantidade Ingressos']:
-                filmes_ordenados.insert(i, filme)
+        for i in range(len(filmes_ordenados)):
+            if filme['Quantidade Ingressos'] > filmes_ordenados[i]['Quantidade Ingressos']:
+                filmes_ordenados = filmes_ordenados[:i] + [filme] + filmes_ordenados[i:]
                 inserido = True
                 break
         if not inserido:
-            filmes_ordenados.append(filme)
-
+            filmes_ordenados += [filme]
     print(azul("Filmes mais populares: "))
-    for filme in filmes_ordenados:
-        print(f"Título: {filme['Titulo']}, Ingressos Disponíveis: {filme['Quantidade Ingressos']}")
+    for i in range(len(filmes_ordenados)):
+        filme = filmes_ordenados[i]
+        print(verde(f"{i + 1}º filme mais popular é '{filme['Titulo']}' com {filme['Quantidade Ingressos']} ingressos disponíveis."))
 
 
 def gerar_arquivo_ingressos_cliente(usuario):

@@ -15,10 +15,6 @@ def verde(texto):
     return '\033[92m' + texto + '\033[0m'
 
 
-def amarelo(texto):
-    return '\033[93m' + texto + '\033[0m'
-
-
 def azul(texto):
     return '\033[94m' + texto + '\033[0m'
 
@@ -31,15 +27,9 @@ def ciano(texto):
     return '\033[96m' + texto + '\033[0m'
 
 
-def piscar(texto):
-    return '\033[5m' + texto + '\033[0m'
-
-
-def oculto(texto):
-    return '\033[8m' + texto + '\033[0m'
-
-
 def espacamento():
     print('-'* 85)
+
+
 
 

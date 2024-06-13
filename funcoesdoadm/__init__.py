@@ -1,13 +1,14 @@
+from style import *
+import matplotlib.pyplot as plt
+from usuarios import *
+
 usuarios = {1: {'nome': 'matheus', 'senha': '1234567', 'tipo': 'adm'}}
 filme_sinopse = """Após dois anos espreitando as ruas como Batman, Bruce Wayne se encontra 
 nas profundezas mais sombrias de Gotham City. Com poucos aliados confiáveis, 
 o vigilante solitário se estabelece como a personificação da vingança para a população."""
-filmes = {"Titulo": "Batman", "Horario": "18:30", "Data": "01/01/2025", "Preço": "15 reais", "Quantidade Ingressos": 100, "Sinopse": filme_sinopse}
+filmes = {"Titulo": "Batman", "Horario": "18:30", "Data": "01/01/2025", "Preço": "15 ", "Quantidade Ingressos": 100, "Sinopse": filme_sinopse}
 dados = [filmes]
 vendas = []
-
-from style import *
-import matplotlib.pyplot as plt
 
 
 
@@ -22,7 +23,15 @@ def adicionar_filmes():
                 filme['Titulo'] = input(azul('Adicione o título: '))
                 filme['Horario'] = input(azul('Adicione horário (HH:MM): '))
                 filme['Data'] = input(azul('Adicione a data (DD/MM/AAAA): '))
-                filme['Preço'] = input(azul('Adicione o preço (R$) : '))
+
+                while True:
+                    preco = input(azul('Adicione o novo preço: '))
+                    if preco.isdigit():
+                        filme['Preço'] = int(preco)
+                        break
+                    else:
+                        print(vermelho('Preço inválido. Por favor, insira um número inteiro.'))
+
 
                 while True:
                     ingressos = input(azul('Adicione a quantidade de ingressos disponíveis: '))
@@ -31,6 +40,8 @@ def adicionar_filmes():
                         break
                     else:
                         print(vermelho('Por favor, insira apenas números para a quantidade de ingressos disponíveis.'))
+
+
 
                 filme['Sinopse'] = input(azul('Adicione a sinopse: '))
                 dados.append(filme)
@@ -49,8 +60,23 @@ def atualizar_filmes():
             filme['Titulo'] = input(azul('Adicione o novo título: '))
             filme['Horario'] = input(azul('Adicione o novo horário: '))
             filme['Data'] = input(azul('Adicione a nova data: '))
-            filme['Preço'] = input(azul('Adicione o novo preço: '))
-            filme['Quantidade Ingressos'] = int(input(azul('Adicione a nova quantidade de ingressos disponíveis: ')))
+
+            while True:
+                preco = input(azul('Adicione o novo preço: '))
+                if preco.isdigit():
+                    filme['Preço'] = int(preco)
+                    break
+                else:
+                    print(vermelho('Preço inválido. Por favor, insira um número inteiro.'))
+
+            while True:
+                quantidade_ingressos = input(azul('Adicione a nova quantidade de ingressos disponíveis: '))
+                if quantidade_ingressos.isdigit():
+                    filme['Quantidade Ingressos'] = int(quantidade_ingressos)
+                    break
+                else:
+                    print(vermelho('Quantidade inválida. Por favor, insira um número inteiro.'))
+
             filme['Sinopse'] = input(azul('Adicione a nova sinopse: '))
             print(verde('Filme atualizado com sucesso!'))
             filme_encontrado = True
@@ -62,10 +88,10 @@ def atualizar_filmes():
 def remover_filmes():
     print(azul("Lista de Filmes:"))
     for filme in dados:
-        print(espacamento)
+        espacamento()
         for chave, valor in filme.items():
             print(f"{chave}: {valor}")
-        print(espacamento)
+        espacamento()
     escolhaadm = input(azul('Qual filme deseja remover: '))
     for filme in dados:
         if escolhaadm.lower() == filme['Titulo'].lower():
@@ -77,9 +103,16 @@ def remover_filmes():
 def listar_ingressos_vendidos_por_filme():
     titulo_filme = input(azul('Digite o título do filme: '))
     print(azul(f"Ingressos vendidos para {titulo_filme}:"))
+
+    ingressos_vendidos = False
+
     for venda in vendas:
         if venda['filme'].lower() == titulo_filme.lower():
             print(f"Cliente: {venda['cliente']}, Quantidade: {venda['quantidade']}")
+            ingressos_vendidos = True
+
+    if not ingressos_vendidos:
+        print(azul('Nenhum ingresso foi vendido para este filme.'))
 
 
 def gerar_arquivo_ingressos_vendidos():
@@ -93,9 +126,13 @@ def gerar_arquivo_ingressos_vendidos():
 
 
 def listar_ingressos_vendidos():
-    print(azul("Ingressos vendidos:"))
-    for venda in vendas:
-        print(f"Cliente: {venda['cliente']}, Filme: {venda['filme']}, Quantidade: {venda['quantidade']}")
+    if not vendas:
+        print(azul("Nenhum ingresso foi vendido."))
+    else:
+        print(azul("Ingressos vendidos:"))
+        for venda in vendas:
+            print(f"Cliente: {venda['cliente']}, Filme: {venda['filme']}, Quantidade: {venda['quantidade']}")
+
 
 
 def buscar_filmes():
@@ -142,6 +179,9 @@ def calcular_total_vendas():
                 total_vendas += int(filme['Preço']) * venda['quantidade']
                 break
     print(verde(f"O total arrecadado com as vendas de ingressos é: R${total_vendas}"))
+
+
+
 
 
 
